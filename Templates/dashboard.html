@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="dashboard-header">
+    <div>
+        <h2>Dashboard Overview</h2>
+        <p class="welcome-text">Hello, <strong>{{ current_user.username }}</strong>! Here is your academic progress summary.</p>
+    </div>
+    <a href="{{ url_for('new_assignment') }}" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add Assignment</a>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon total"><i class="fa-solid fa-folder-open"></i></div>
+        <div class="stat-info">
+            <h3>{{ total }}</h3>
+            <p>Total Tasks</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon pending"><i class="fa-solid fa-clock"></i></div>
+        <div class="stat-info">
+            <h3>{{ pending }}</h3>
+            <p>Pending</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon submitted"><i class="fa-solid fa-paper-plane"></i></div>
+        <div class="stat-info">
+            <h3>{{ submitted }}</h3>
+            <p>Submitted</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon completed"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="stat-info">
+            <h3>{{ completed }}</h3>
+            <p>Completed</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon overdue"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <div class="stat-info">
+            <h3>{{ overdue }}</h3>
+            <p>Overdue</p>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-section">
+    <h3><i class="fa-solid fa-bell"></i> Upcoming Deadlines</h3>
+    {% if upcoming %}
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Subject</th>
+                        <th>Due Date</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for a in upcoming %}
+                    <tr>
+                        <td><strong>{{ a.title }}</strong></td>
+                        <td>{{ a.subject }}</td>
+                        <td>{{ a.due_date.strftime('%b %d, %Y') }}</td>
+                        <td><span class="badge badge-{{ a.priority | lower }}">{{ a.priority }}</span></td>
+                        <td><span class="badge status-{{ a.status | lower }}">{{ a.status }}</span></td>
+                        <td>
+                            <a href="{{ url_for('edit_assignment', assignment_id=a.id) }}" class="btn-sm btn-edit">Edit</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <p>No upcoming deadlines! You are all caught up.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero-section">
+    <div class="hero-badge"><i class="fa-solid fa-bolt"></i> Modern Student Productivity</div>
+    <h1>Master Your Academic Life with <span>AssignEase</span></h1>
+    <p>Track assignments, never miss deadlines, and organize your college workload effortlessly through a professional cloud-based dashboard.</p>
+    <div class="hero-actions">
+        <a href="{{ url_for('register') }}" class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Get Started Free</a>
+        <a href="{{ url_for('login') }}" class="btn btn-secondary"><i class="fa-solid fa-right-to-bracket"></i> Sign In</a>
+    </div>
+    
+    <div class="features-grid">
+        <div class="feature-card">
+            <i class="fa-solid fa-list-check"></i>
+            <h3>Smart Tracking</h3>
+            <p>Categorize tasks by pending, submitted, or completed status with custom priority tags.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fa-solid fa-calendar-days"></i>
+            <h3>Deadline Alerts</h3>
+            <p>Monitor upcoming due dates cleanly so you never fall behind on your coursework.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <h3>File Management</h3>
+            <p>Upload project files, documentation, and submissions securely alongside your tasks.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

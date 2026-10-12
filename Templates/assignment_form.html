@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-container" style="max-width: 600px; margin: 2rem auto; background: var(--card-bg); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);">
+    <div style="margin-bottom: 1.5rem; text-align: center;">
+        <h2 style="font-size: 1.8rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">
+            <i class="fa-solid fa-file-pen" style="color: var(--primary);"></i> {{ legend }}
+        </h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">Fill in the details below to track your academic task efficiently.</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+
+        <div style="margin-bottom: 1.25rem;">
+            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem;">Assignment Title</label>
+            {{ form.title(class="form-control", style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem;") }}
+            {% for error in form.title.errors %}
+                <span style="color: #ef4444; font-size: 0.85rem; margin-top: 0.25rem; display: block;">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <div style="margin-bottom: 1.25rem;">
+            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem;">Subject</label>
+            {{ form.subject(class="form-control", placeholder="e.g. Cloud Computing", style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem;") }}
+            {% for error in form.subject.errors %}
+                <span style="color: #ef4444; font-size: 0.85rem; margin-top: 0.25rem; display: block;">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <div style="margin-bottom: 1.25rem;">
+            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem;">Description / Notes</label>
+            {{ form.description(class="form-control", style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; min-height: 100px;") }}
+            {% for error in form.description.errors %}
+                <span style="color: #ef4444; font-size: 0.85rem; margin-top: 0.25rem; display: block;">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem;">
+            <div>
+                <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem;">Due Date</label>
+                {{ form.due_date(class="form-control", type="date", style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem;") }}
+                {% for error in form.due_date.errors %}
+                    <span style="color: #ef4444; font-size: 0.85rem; margin-top: 0.25rem; display: block;">{{ error }}</span>
+                {% endfor %}
+            </div>
+            <div>
+                <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem;">Priority</label>
+                {{ form.priority(class="form-control", style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; background: white;") }}
+                {% for error in form.priority.errors %}
+                    <span style="color: #ef4444; font-size: 0.85rem; margin-top: 0.25rem; display: block;">{{ error }}</span>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div style="margin-bottom: 1.25rem;">
+            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem;">Status</label>
+            {{ form.status(class="form-control", style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; background: white;") }}
+            {% for error in form.status.errors %}
+                <span style="color: #ef4444; font-size: 0.85rem; margin-top: 0.25rem; display: block;">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem;">Attach File (Optional)</label>
+            {{ form.file(style="width: 100%; padding: 0.5rem; border: 1px dashed var(--border-color); border-radius: 8px; font-size: 0.9rem; background: #f8fafc;") }}
+            {% for error in form.file.errors %}
+                <span style="color: #ef4444; font-size: 0.85rem; margin-top: 0.25rem; display: block;">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <div style="display: flex; gap: 1rem;">
+            {{ form.submit(class="btn btn-primary", style="flex: 1; padding: 0.75rem; border: none; border-radius: 8px; font-weight: 600; background-color: var(--primary); color: white; cursor: pointer;") }}
+            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary" style="flex: 1; text-align: center; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; font-weight: 600; text-decoration: none; color: var(--text-color); background: #f1f5f9;">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
