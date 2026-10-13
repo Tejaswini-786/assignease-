@@ -14,6 +14,13 @@ from config import Config
 app = Flask(__name__, template_folder="Templates")
 app.config.from_object(Config)
 
+# Fix Render PostgreSQL URL for SQLAlchemy 2.x compatibility
+db_url = os.getenv("DATABASE_URL")
+if db_url and db_url.startswith("postgres://"):
+    db_url = db_url.replace("postgres://", "postgresql://", 1)
+if db_url:
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_url
+
 db = SQLAlchemy(app)
 import cloudinary
 import cloudinary.uploader
