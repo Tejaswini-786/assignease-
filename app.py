@@ -15,11 +15,22 @@ app = Flask(__name__, template_folder="Templates")
 app.config.from_object(Config)
 
 db = SQLAlchemy(app)
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+# Configure Cloudinary
+cloudinary.config(
+    cloud_name=app.config['CLOUDINARY_CLOUD_NAME'],
+    api_key=app.config['CLOUDINARY_API_KEY'],
+    api_secret=app.config['CLOUDINARY_API_SECRET']
+)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
-os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+upload_folder = app.config.get('UPLOAD_FOLDER', 'static/uploads')
+os.makedirs(upload_folder, exist_ok=True)
 
 # --- DATABASE MODELS ---
 class User(UserMixin, db.Model):
